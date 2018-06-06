@@ -2,6 +2,7 @@
 # Dot-hidden on Unix-like systems
 .waf-*-*/
 .waf3-*-*/
+./build
 # Hidden directory on Windows (no dot)
 waf-*-*/
 waf3-*-*/

@@ -88,7 +88,22 @@ public:
 
 	void AddEnbSinr (Ptr<NetDevice> enbNetDevice, uint16_t enbBeamId, uint16_t ueBeamId, SpectrumValue sinr);
 
+	/*
+	 * @brief Alt1: Determines the candidate beam pairs to track according to their avg SINR value.
+	 */
+	void FindBeamPairCandidatesSinr();
+
+	/*
+	 * @brief Alt2: Determines the best beam pair (SINR) and tracks the 4 closest beams at UE side (left, right, up and down).
+	 */
+	void FindBeamPairCandidatesVicinity();
+
+	uint16_t GetMaxNumBeamPairCandidates();
+
+	void SetMaxNumBeamPairCandidates(uint16_t nBeamPairs);
+
 	BeamPairInfoStruct FindBestScannedBeamPair ();
+
 	BeamPairInfoStruct GetBestScannedBeamPair ();
 
 	void UpdateBestScannedEnb();
@@ -117,6 +132,10 @@ private:
 	uint16_t m_ssBlocksLastBeamSweepUpdate;	// Counter of ss blocks since the last beam update (when counter was reset)
 
 	BeamPairInfoStruct m_bestScannedEnb;
+
+	uint16_t m_maxNumBeamPairCandidates;	// Maximum number of beam pairs to monitor.
+	//std::vector<BeamPairInfoStruct> m_candidateBeams;
+	std::map <Ptr<NetDevice>,std::vector<BeamPairInfoStruct>> m_candidateBeamsMap;
 
 	std::map <Ptr<NetDevice>,std::map <sinrKey,SpectrumValue>> m_enbSinrMap;	//Map to all the eNBs
 //	std::map <Ptr<NetDevice>,std::map <sinrKey,float>> m_ueSinrMap;	//Map to all the UEs
